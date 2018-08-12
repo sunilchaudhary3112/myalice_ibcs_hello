@@ -1,0 +1,30 @@
+{
+  "name": "myalice_ibcs_hello",
+  "version": "0.1.0",
+  "description": "Oracle Bots Nodejs Samples - Alice SingleBot",
+  "author": "SCC",
+  "license": "ISC",
+  "repository": {},
+  "main": "index.js",
+  "dependencies": {
+    "alexa-app": "^4.2.0",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "joi": "^9.2.0",
+    "locutus": "^2.0.6",
+    "micro": "^9.3.3",
+    "pubsub-js": "^1.5.4",
+    "request": "^2.79.0",
+    "underscore": "^1.8.3",
+    "util": "^0.10.3",
+    "yandex-dialogs-sdk": "^1.5.2"
+  },
+  "devDependencies": {
+    "request": "^2.79.0",
+    "sinon": "^4.1.2"
+  },
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon"
+  }
+}
