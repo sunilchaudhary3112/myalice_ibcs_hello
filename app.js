@@ -200,7 +200,7 @@ module.exports = function () {
             }; // End of commandResponse
 
             var token = PubSub.subscribe(userIdTopic, commandResponse);
-            self.sendWebhookMessageToBot(metadata.channelUrl, metadata.channelSecretKey, userId, messagePayload, additionalProperties, function (err) {
+            self.sendWebhookMessageToBot(metadata.channelUrl, metadata.channelSecretKey, userId, messagePayload, additionalProperties, function (err, response) {
               if (err) {
                 logger.info("Failed sending message to Bot");
                 //alexa_res.say("Failed sending message to Bot.  Please review your bot configuration.");
@@ -209,6 +209,9 @@ module.exports = function () {
                 ctx.reply(replyMessage.get());
                 reject();
                 PubSub.unsubscribe(userIdTopic);
+              }else{
+                console.log('Inside self.sendWebhookMessageToBot');
+                console.log(response);
               }
             });
           });

@@ -163,7 +163,9 @@ function messageToBotWithProperties(channelUrl, channelSecretKey, userId, inMsg,
         callback: function (err, response, body) {
             if (!err) {
                 console.log('No Error');
-                callback(null);
+                console.log(response);
+                console.log(body);
+                callback(null, response);
             } else {
                 console.log('Inside messageToBotWithProperties');
                 console.log('response');
@@ -172,7 +174,7 @@ function messageToBotWithProperties(channelUrl, channelSecretKey, userId, inMsg,
                 console.log('body');
                 console.log('err');
                 console.log(err);
-                callback(err);
+                callback(err, null);
             }
         }
     });
