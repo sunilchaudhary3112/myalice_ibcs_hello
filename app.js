@@ -23,8 +23,8 @@ module.exports = function () {
     allowConfigUpdate: true, //set to false to turn off REST endpoint of allowing update of metadata
     waitForMoreResponsesMs: 200,  //milliseconds to wait for additional webhook responses
     amzn_appId: "amzn1.ask.skill.b6a603ad-5f3f-471e-b509-922ddc2aded9",
-    channelSecretKey: 'VrwFa1G2yMQ3lbGheStwsbAyw2uErqH6',
-    channelUrl: 'http://bots-connectors:8000/connectors/v1/tenants/chatbot-tenant/listeners/webhook/channels/07A28256-817B-4241-A816-F3E92C37D1F2'
+    channelSecretKey: 'KTB8fB2BKzjitf6GLinMk7stWGTu2mRH',
+    channelUrl: 'http://bots-connectors:8000/connectors/v1/tenants/chatbot-tenant/listeners/webhook/channels/4499CBAA-EDD9-448F-AE4A-A0315B3290B1'
   };
 
   // expose this function to be stubbed
