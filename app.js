@@ -40,7 +40,7 @@ module.exports = function () {
   this.init = function (config) {
     var app = express();
     var aliceRouter = express.Router();
-    aliceRouter.use(bodyParser.json());
+    //aliceRouter.use(bodyParser.json());
     app.use('/', aliceRouter);
     var logger = (config ? config.logger : null);
     if (!logger) {
@@ -86,7 +86,9 @@ module.exports = function () {
       return responseMap;
     }
 
-    app.post('/singleBotWebhook/messages', function (req, res) {
+    app.post('/singleBotWebhook/messages', bodyParser.json({
+      verify: webhookUtil.bodyParserRawMessageVerify
+    }), function (req, res) {
       console.log('Inside singleBotWebhook post method');
       console.log('req.body');
       console.log(req.body);
@@ -104,12 +106,12 @@ module.exports = function () {
     });
     // end of alexa code
 
-    aliceRouter.get('/', function (req, res) {
+    aliceRouter.get('/', bodyParser.json(), function (req, res) {
       console.log("inside /");
       res.send('im the home page!');
     });
 
-    app.post('/alexa/app', async (req, res) => {
+    app.post('/alexa/app', bodyParser.json(), async (req, res) => {
       session = req.body.session;
       const handleResponseCallback = response => res.send(response);
       const replyMessage = await alice.handleRequestBody(req.body, handleResponseCallback);
