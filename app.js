@@ -86,9 +86,10 @@ module.exports = function () {
       return responseMap;
     }
 
-    app.post('/singleBotWebhook/messages', bodyParser.json({
-      verify: webhookUtil.bodyParserRawMessageVerify
-    }), function (req, res) {
+    app.post('/singleBotWebhook/messages', function (req, res) {
+      console.log('Inside singleBotWebhook post method');
+      console.log('req.body');
+      console.log(req.body);
       const userID = req.body.userId;
       if (!userID) {
         return res.status(400).send('Missing User ID');
@@ -209,7 +210,7 @@ module.exports = function () {
                 ctx.reply(replyMessage.get());
                 reject();
                 PubSub.unsubscribe(userIdTopic);
-              }else{
+              } else {
                 console.log('Inside self.sendWebhookMessageToBot');
                 console.log(response);
               }
@@ -226,7 +227,7 @@ module.exports = function () {
           //var menuResponse = botUtil.approxTextMatch(input, _.keys(botMenuResponseMap), true, true, 7);
           var botMessages = ctx.message;
           var commandMsg = MessageModel.textConversationMessage(command);
-          
+
           return sendMessageToBot(commandMsg);
         }
 
@@ -235,7 +236,7 @@ module.exports = function () {
 
 
       }//End of If Condition
-      else{
+      else {
         _.defer(function () {
           replyMessage.text(' Are you from England? ');
           return ctx.reply(replyMessage.get());
@@ -247,7 +248,7 @@ module.exports = function () {
       // replyMessage.shouldEndSession(false);
       // replyMessage.text(' Are you from England? ');
       // return ctx.reply(replyMessage.get());
-      
+
 
     }// End of Alice Handler
 
@@ -256,9 +257,9 @@ module.exports = function () {
 
     app.locals.endpoints = [];
     app.locals.endpoints.push({
-        name: 'webhook',
-        method: 'POST',
-        endpoint: '/singleBotWebhook/messages'
+      name: 'webhook',
+      method: 'POST',
+      endpoint: '/singleBotWebhook/messages'
     });
     app.locals.endpoints.push({
       name: 'alexa',
