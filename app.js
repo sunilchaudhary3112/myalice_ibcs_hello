@@ -124,7 +124,7 @@ module.exports = function () {
       var userId;
       var command = ctx.message;
       if (!userId) {
-        userId = self.randomIntInc(1000000, 9999999).toString();
+        userId = '33c0bcBc8e-378c-4496-bc2a-b2b9647de2317'; //self.randomIntInc(1000000, 9999999).toString();
         session.userId = userId;
       }
       const replyMessage = ctx.replyBuilder;
