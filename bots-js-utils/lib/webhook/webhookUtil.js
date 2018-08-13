@@ -135,6 +135,9 @@ function messageToBotWithProperties(channelUrl, channelSecretKey, userId, inMsg,
         headers: headers
     }
 
+    console.log(channelUrl);
+    console.log(args);
+    
     client.post(channelUrl, args, function (data, response) {
         if (Buffer.isBuffer(data)) {
             data = data.toString('utf8');
@@ -150,28 +153,28 @@ function messageToBotWithProperties(channelUrl, channelSecretKey, userId, inMsg,
 };
 //End of Temp Code
 
-    // request.post({
-    //     uri: channelUrl,
-    //     headers: headers,
-    //     body: body,
-    //     timeout: 60000,
-    //     followAllRedirects: true,
-    //     followOriginalHttpMethod: true,
-    //     callback: function(err, response, body) {
-    //         if (!err) {
-    //             callback(null);
-    //         } else {
-    //             console.log('Inside messageToBotWithProperties');
-    //             console.log('response');
-    //             console.log(response);
-    //             console.log(body);
-    //             console.log('body');
-    //             console.log('err');
-    //             console.log(err);
-    //             callback(err);
-    //         }
-    //     }
-    // });
+// request.post({
+//     uri: channelUrl,
+//     headers: headers,
+//     body: body,
+//     timeout: 60000,
+//     followAllRedirects: true,
+//     followOriginalHttpMethod: true,
+//     callback: function(err, response, body) {
+//         if (!err) {
+//             callback(null);
+//         } else {
+//             console.log('Inside messageToBotWithProperties');
+//             console.log('response');
+//             console.log(response);
+//             console.log(body);
+//             console.log('body');
+//             console.log('err');
+//             console.log(err);
+//             callback(err);
+//         }
+//     }
+// });
 //}
 
 /**
