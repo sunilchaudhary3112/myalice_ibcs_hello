@@ -252,11 +252,11 @@ module.exports = function () {
 
 
     app.locals.endpoints = [];
-    // app.locals.endpoints.push({
-    //     name: 'webhook',
-    //     method: 'POST',
-    //     endpoint: '/singleBotWebhook/messages'
-    // });
+    app.locals.endpoints.push({
+        name: 'webhook',
+        method: 'POST',
+        endpoint: '/singleBotWebhook/messages'
+    });
     app.locals.endpoints.push({
       name: 'alexa',
       method: 'POST',
