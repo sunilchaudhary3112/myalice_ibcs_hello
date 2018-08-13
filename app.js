@@ -24,7 +24,7 @@ module.exports = function () {
     waitForMoreResponsesMs: 200,  //milliseconds to wait for additional webhook responses
     amzn_appId: "amzn1.ask.skill.b6a603ad-5f3f-471e-b509-922ddc2aded9",
     channelSecretKey: 'LwQzvS0GhRm19udjrmhKpjIBghSMrSZr',
-    channelUrl: 'https://f8c04d71.ngrok.io/connectors/v1/tenants/chatbot-tenant/listeners/webhook/channels/B9CB2CFE-8717-422C-8809-73AFD37D1894'
+    channelUrl: 'https://e87476aa.ngrok.io/connectors/v1/tenants/chatbot-tenant/listeners/webhook/channels/B9CB2CFE-8717-422C-8809-73AFD37D1894'
   };
 
   // expose this function to be stubbed
