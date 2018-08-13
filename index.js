@@ -6,7 +6,7 @@ var app = require('./app.js');
 var port = 4001;
 const config = {
     root: __dirname,
-    port: port,
+    port: process.env.PORT || 4001,
     logLevel: 'INFO',
     logger: null,
 		basicAuth: null,
