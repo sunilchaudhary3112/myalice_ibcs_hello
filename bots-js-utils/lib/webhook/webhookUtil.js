@@ -120,62 +120,62 @@ function messageToBotWithProperties(channelUrl, channelSecretKey, userId, inMsg,
     console.log(body);
     //Temp Code
 
-    var tempmessagePayLoad = {
-        "type": "text",
-        "text": "hello, world!"
-    };
+    //     var tempmessagePayLoad = {
+    //         "type": "text",
+    //         "text": "hello, world!"
+    //     };
 
-    var tempBody = {
-        "userId": "33c0bcBc8e-378c-4496-bc2a-b2b9647de2317",
-        "messagePayload": tempmessagePayLoad
-    }
+    //     var tempBody = {
+    //         "userId": "33c0bcBc8e-378c-4496-bc2a-b2b9647de2317",
+    //         "messagePayload": tempmessagePayLoad
+    //     }
 
-    var args = {
-        data: tempBody,
-        headers: headers
-    }
+    //     var args = {
+    //         data: tempBody,
+    //         headers: headers
+    //     }
 
-    console.log(channelUrl);
-    console.log(args);
-    
-    client.post(channelUrl, args, function (data, response) {
-        if (Buffer.isBuffer(data)) {
-            data = data.toString('utf8');
+    //     console.log(channelUrl);
+    //     console.log(args);
+
+    //     client.post(channelUrl, args, function (data, response) {
+    //         if (Buffer.isBuffer(data)) {
+    //             data = data.toString('utf8');
+    //         }
+    //         var jsonData = JSON.parse(data);
+    //         console.log('json data');
+    //         console.log(jsonData);
+    //         callback(null);
+    //     }).on('error', function (err) {
+    //         console.log(`err - ${err}`);
+    //         callback(err);
+    //     });
+    // };
+    //End of Temp Code
+
+    request.post({
+        uri: channelUrl,
+        headers: headers,
+        body: body,
+        timeout: 60000,
+        followAllRedirects: true,
+        followOriginalHttpMethod: true,
+        callback: function (err, response, body) {
+            if (!err) {
+                callback(null);
+            } else {
+                console.log('Inside messageToBotWithProperties');
+                console.log('response');
+                console.log(response);
+                console.log(body);
+                console.log('body');
+                console.log('err');
+                console.log(err);
+                callback(err);
+            }
         }
-        var jsonData = JSON.parse(data);
-        console.log('json data');
-        console.log(jsonData);
-        callback(null);
-    }).on('error', function (err) {
-        console.log(`err - ${err}`);
-        callback(err);
     });
-};
-//End of Temp Code
-
-// request.post({
-//     uri: channelUrl,
-//     headers: headers,
-//     body: body,
-//     timeout: 60000,
-//     followAllRedirects: true,
-//     followOriginalHttpMethod: true,
-//     callback: function(err, response, body) {
-//         if (!err) {
-//             callback(null);
-//         } else {
-//             console.log('Inside messageToBotWithProperties');
-//             console.log('response');
-//             console.log(response);
-//             console.log(body);
-//             console.log('body');
-//             console.log('err');
-//             console.log(err);
-//             callback(err);
-//         }
-//     }
-// });
-//}
+}
 
 /**
  * The webhookUtil is a set of utility functions for bot integration via webhook channel.
