@@ -157,11 +157,12 @@ function messageToBotWithProperties(channelUrl, channelSecretKey, userId, inMsg,
         uri: channelUrl,
         headers: headers,
         body: body,
-        timeout: 60000,
+        timeout: 90000,
         followAllRedirects: true,
         followOriginalHttpMethod: true,
         callback: function (err, response, body) {
             if (!err) {
+                console.log('No Error');
                 callback(null);
             } else {
                 console.log('Inside messageToBotWithProperties');
