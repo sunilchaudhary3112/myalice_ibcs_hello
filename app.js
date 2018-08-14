@@ -90,8 +90,8 @@ module.exports = function () {
       verify: webhookUtil.bodyParserRawMessageVerify
     }), function (req, res) {
       console.log('Inside singleBotWebhook post method');
-      console.log('req.body');
-      console.log(req.body);
+      //console.log('req.body');
+      //console.log(req.body);
       const userID = req.body.userId;
       if (!userID) {
         return res.status(400).send('Missing User ID');
@@ -118,7 +118,8 @@ module.exports = function () {
     });
 
     alice.any(ctx => {
-      console.log('This is test to check');
+      console.log('ctx.message***************************************');
+      console.log(ctx.message);
       aliceHandler(ctx);
       //ctx.reply('This is any Alice method');
     });
@@ -214,7 +215,7 @@ module.exports = function () {
                 PubSub.unsubscribe(userIdTopic);
               } else {
                 console.log('Inside self.sendWebhookMessageToBot');
-                console.log(response);
+                //console.log(response);
               }
             });
           });

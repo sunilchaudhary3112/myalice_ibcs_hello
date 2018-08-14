@@ -115,43 +115,10 @@ function messageToBotWithProperties(channelUrl, channelSecretKey, userId, inMsg,
     const headers = {};
     headers['Content-Type'] = 'application/json; charset=utf-8';
     headers['X-Hub-Signature'] = buildSignatureHeader(body, channelSecretKey);
-    console.log('header');
-    console.log(headers);
-    console.log(body);
-    //Temp Code
+    //console.log('header');
+    //console.log(headers);
+    //console.log(body);
 
-    //     var tempmessagePayLoad = {
-    //         "type": "text",
-    //         "text": "hello, world!"
-    //     };
-
-    //     var tempBody = {
-    //         "userId": "33c0bcBc8e-378c-4496-bc2a-b2b9647de2317",
-    //         "messagePayload": tempmessagePayLoad
-    //     }
-
-    //     var args = {
-    //         data: tempBody,
-    //         headers: headers
-    //     }
-
-    //     console.log(channelUrl);
-    //     console.log(args);
-
-    //     client.post(channelUrl, args, function (data, response) {
-    //         if (Buffer.isBuffer(data)) {
-    //             data = data.toString('utf8');
-    //         }
-    //         var jsonData = JSON.parse(data);
-    //         console.log('json data');
-    //         console.log(jsonData);
-    //         callback(null);
-    //     }).on('error', function (err) {
-    //         console.log(`err - ${err}`);
-    //         callback(err);
-    //     });
-    // };
-    //End of Temp Code
 
     request.post({
         uri: channelUrl,
@@ -163,15 +130,14 @@ function messageToBotWithProperties(channelUrl, channelSecretKey, userId, inMsg,
         callback: function (err, response, body) {
             if (!err) {
                 console.log('No Error');
-                console.log(response);
-                console.log(body);
+                //console.log(response);
+                //console.log(body);
                 callback(null, response);
             } else {
                 console.log('Inside messageToBotWithProperties');
-                console.log('response');
-                console.log(response);
-                console.log(body);
-                console.log('body');
+                //console.log('response');
+                //console.log(response);
+                //console.log(body);
                 console.log('err');
                 console.log(err);
                 callback(err, null);
