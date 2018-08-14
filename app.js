@@ -222,14 +222,74 @@ module.exports = function () {
         }; // End of sendMessageToBot
 
         var handleInput = function (input) {
-          // var botMenuResponseMap = session.botMenuResponseMap;
-          // if (typeof botMenuResponseMap !== 'object') {
-          //   botMenuResponseMap = {};
-          // }
-          //var menuResponse = botUtil.approxTextMatch(input, _.keys(botMenuResponseMap), true, true, 7);
-          var botMessages = ctx.message;
+          var botMenuResponseMap = session.botMenuResponseMap;
+          if (typeof botMenuResponseMap !== 'object') {
+            botMenuResponseMap = {};
+          }
+          var menuResponse = botUtil.approxTextMatch(input, _.keys(botMenuResponseMap), true, true, 7);
+          var botMessages = session.botMessages;
           var commandMsg = MessageModel.textConversationMessage(command);
+          if (menuResponse) {
+            var menu = botMenuResponseMap[menuResponse.item];
+            if (['global', 'message'].includes(menu.type)) {
+              var action = menu.action;
+              session.botMessages = [];
+              session.botMenuResponseMap = {};
+              if (action.type === 'postback') {
+                var postbackMsg = MessageModel.postbackConversationMessage(action.postback);
+                return sendMessageToBot(postbackMsg);
+              }
+            } else if (menu.type === 'card') {
+              var selectedCard;
+              if (menu.action && menu.action.type && menu.action.type === 'custom' && menu.action.value && menu.action.value.type === 'card') {
+                selectedCard = _.clone(menu.action.value.value);
+              }
 
+              if (selectedCard) {
+                if (!Array.isArray(botMessages)) {
+                  botMessages = [];
+                }
+                var selectedMessage;
+                if (botMessages.length === 1) {
+                  selectedMessage = botMessages[0];
+                } else {
+                  selectedMessage = _.find(botMessages, function (botMessage) {
+                    if (botMessage.type === 'card') {
+                      return _.some(botMessage.cards, function (card) {
+                        return (card.title === selectedCard.title);
+                      });
+                    } else {
+                      return false;
+                    }
+                  });
+                }
+                if (selectedMessage) {
+                  session.botMenuResponseMap = menuResponseMap(selectedMessage, selectedCard);
+                  let messageToAlexa = messageModelUtil.cardToText(selectedCard, 'Card');
+                  logger.info("Message to Alexa (card):", messageToAlexa);
+                  replyMessage.text(messageToAlexa);
+                  return ctx.reply(replyMessage.get());
+                }
+              }
+            } else if (menu.type === 'cardReturn') {
+              var returnMessage;
+              if (menu.action && menu.action.type && menu.action.type === 'custom' && menu.action.value && menu.action.value.type === 'messagePayload') {
+                returnMessage = _.clone(menu.action.value.value);
+              }
+              if (returnMessage) {
+                session.botMenuResponseMap =  _.reduce(botMessages, function (memo, msg) {
+                  return Object.assign(memo, menuResponseMap(msg));
+                }, {});
+                //session.set("botMenuResponseMap", menuResponseMap(returnMessage));
+                _.each(botMessages, function (msg) {
+                  let messageToAlexa = messageModelUtil.convertRespToText(msg);
+                  logger.info("Message to Alexa (return from card):", messageToAlexa);
+                  replyMessage.text(messageToAlexa);
+                })
+                return ctx.reply(replyMessage.get());
+              }
+            }
+          }
           return sendMessageToBot(commandMsg);
         }
 
@@ -240,7 +300,7 @@ module.exports = function () {
       }//End of If Condition
       else {
         _.defer(function () {
-          replyMessage.text(' Are you from England? ');
+          replyMessage.text(" I don't understand. Could you please repeat what you want? ");
           return ctx.reply(replyMessage.get());
         });
       }
@@ -248,7 +308,6 @@ module.exports = function () {
 
 
       // replyMessage.shouldEndSession(false);
-      // replyMessage.text(' Are you from England? ');
       // return ctx.reply(replyMessage.get());
 
 
@@ -270,12 +329,7 @@ module.exports = function () {
     });
 
     return app;
-
-
-
   };
 
   return this;
-
-
 }();
